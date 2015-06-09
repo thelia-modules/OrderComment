@@ -2,10 +2,10 @@
 <module>
     <fullnamespace>OrderComment\OrderComment</fullnamespace>
     <descriptive locale="en_US">
-        <title>Allow customer to add comment to their order</title>
+        <title>Allow customer to add comment to this order</title>
     </descriptive>
     <descriptive locale="fr_FR">
-        <title>Permet au client d'ajouter un commentaire a leur commande</title>
+        <title>Permet au client d'ajouter un commentaire à sa commande</title>
     </descriptive>
     <version>1.0</version>
     <author>
