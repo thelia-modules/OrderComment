@@ -34,7 +34,7 @@ class OrderCommentController extends BaseFrontController
                 $this->getRequest()->getSession()->set('order-comment', $comment);
             }
 
-            $this->redirectToRoute("order.delivery");
+            return $this->generateRedirectFromRoute("order.delivery");
 
         } catch (FormValidationException $e) {
             $message = Translator::getInstance()->trans("Please check your input: %s", ['%s' => $e->getMessage()], Front::MESSAGE_DOMAIN);
@@ -53,7 +53,7 @@ class OrderCommentController extends BaseFrontController
                 ->setGeneralError($message)
             ;
 
-            $this->redirectToRoute("cart.view");
+            return $this->generateRedirectFromRoute("cart.view");
         }
 
     }
