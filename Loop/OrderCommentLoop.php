@@ -8,7 +8,6 @@
 
 namespace OrderComment\Loop;
 
-
 use OrderComment\Model\OrderCommentQuery;
 use Thelia\Core\Template\Element\BaseLoop;
 use Thelia\Core\Template\Element\LoopResult;

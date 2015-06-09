@@ -8,7 +8,6 @@
 
 namespace OrderComment\EventListeners;
 
-
 use OrderComment\Model\OrderComment;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Thelia\Core\Event\Order\OrderEvent;

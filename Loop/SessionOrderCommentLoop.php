@@ -8,7 +8,6 @@
 
 namespace OrderComment\Loop;
 
-
 use Thelia\Core\Template\Element\ArraySearchLoopInterface;
 use Thelia\Core\Template\Element\BaseLoop;
 use Thelia\Core\Template\Element\LoopResult;

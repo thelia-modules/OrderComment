@@ -8,11 +8,9 @@
 
 namespace OrderComment\Controller;
 
-
 use Front\Front;
 use OrderComment\Form\CommentForm;
 use Propel\Runtime\Exception\PropelException;
-use Thelia\Controller\BaseController;
 use Thelia\Controller\Front\BaseFrontController;
 use Thelia\Core\Translation\Translator;
 use Thelia\Form\Exception\FormValidationException;

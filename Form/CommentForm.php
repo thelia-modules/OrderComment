@@ -8,7 +8,6 @@
 
 namespace OrderComment\Form;
 
-
 use Thelia\Form\BaseForm;
 
 class CommentForm extends BaseForm
