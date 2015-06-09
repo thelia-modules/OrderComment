@@ -25,14 +25,14 @@ class OrderInfo implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return [TheliaEvents::ORDER_PAY => 'saveComment'];
+        return [TheliaEvents::ORDER_AFTER_CREATE => 'saveComment'];
     }
 
     public function saveComment(OrderEvent $orderEvent)
     {
         $comment = $this->request->getSession()->get('order-comment');
 
-        $order = $orderEvent->getPlacedOrder();
+        $order = $orderEvent->getOrder();
         $orderId = $order->getId();
 
         if ($orderId != null && $comment != null) {
