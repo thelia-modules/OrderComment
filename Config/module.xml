@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+    <fullnamespace>OrderComment\OrderComment</fullnamespace>
+    <descriptive locale="en_US">
+        <title>Allow customer to add comment to their order</title>
+    </descriptive>
+    <descriptive locale="fr_FR">
+        <title>Permet au client d'ajouter un commentaire a leur commande</title>
+    </descriptive>
+    <version>1.0</version>
+    <author>
+        <name>Vincent Lopes-Vicente</name>
+        <email>vlopes@openstudio.fr</email>
+    </author>
+    <type>classic</type>
+    <thelia>2.0.0</thelia>
+    <stability>other</stability>
+</module>
