@@ -2,5 +2,5 @@
 
 return array(
     'Comment' => 'Comment',
-    'Order comment' => 'Order comment',
+    'Order comment' => 'Order comment'
 );
