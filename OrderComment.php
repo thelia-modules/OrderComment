@@ -12,17 +12,20 @@
 
 namespace OrderComment;
 
+use OrderComment\Model\OrderCommentQuery;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Thelia\Install\Database;
 use Thelia\Module\BaseModule;
 
 class OrderComment extends BaseModule
 {
-
     public function postActivation(ConnectionInterface $con = null)
     {
-        $database = new Database($con->getWrappedConnection());
-        $database->insertSql(null, array(THELIA_ROOT . '/local/modules/OrderComment/Config/thelia.sql'));
+        try {
+            OrderCommentQuery::create()->findOne();
+        } catch (\Exception $e) {
+            $database = new Database($con->getWrappedConnection());
+            $database->insertSql(null, array(THELIA_ROOT . '/local/modules/OrderComment/Config/thelia.sql'));
+        }
     }
-
 }

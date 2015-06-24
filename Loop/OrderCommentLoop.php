@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vincent
- * Date: 14/10/2014
- * Time: 11:25
- */
 
 namespace OrderComment\Loop;
 
@@ -18,7 +12,6 @@ use Thelia\Core\Template\Loop\Argument\ArgumentCollection;
 
 class OrderCommentLoop extends BaseLoop implements PropelSearchLoopInterface
 {
-
     /**
      * @return \Thelia\Core\Template\Loop\Argument\ArgumentCollection
      */
@@ -50,12 +43,10 @@ class OrderCommentLoop extends BaseLoop implements PropelSearchLoopInterface
     {
         /** @var \OrderComment\Model\OrderComment $orderComment */
         foreach ($loopResult->getResultDataCollection() as $orderComment) {
-
             $loopResultRow = new LoopResultRow($orderComment);
 
             $loopResultRow->set("ORDER_COMMENT", $orderComment->getComment());
             $loopResult->addRow($loopResultRow);
-
         }
 
         return $loopResult;

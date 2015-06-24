@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vincent
- * Date: 14/10/2014
- * Time: 15:17
- */
 
 namespace OrderComment\EventListeners;
 
@@ -44,6 +38,5 @@ class OrderInfo implements EventSubscriberInterface
 
             $this->request->getSession()->set('order-comment', '');
         }
-
     }
 }
