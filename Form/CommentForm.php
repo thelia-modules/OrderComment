@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vincent
- * Date: 05/11/2014
- * Time: 11:26
- */
 
 namespace OrderComment\Form;
 

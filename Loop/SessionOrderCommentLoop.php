@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vincent
- * Date: 14/10/2014
- * Time: 16:14
- */
 
 namespace OrderComment\Loop;
 

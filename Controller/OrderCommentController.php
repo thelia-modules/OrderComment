@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vincent
- * Date: 14/10/2014
- * Time: 14:24
- */
 
 namespace OrderComment\Controller;
 
@@ -23,7 +17,6 @@ class OrderCommentController extends BaseFrontController
         $commentForm = new CommentForm($this->getRequest());
 
         try {
-
             $form = $this->validateForm($commentForm);
             $data = $form->getData($form);
             $comment = $data['comment'];
@@ -43,7 +36,6 @@ class OrderCommentController extends BaseFrontController
         }
 
         if ($message !== false) {
-
             $commentForm->setErrorMessage($message);
 
             $this->getParserContext()
@@ -53,6 +45,5 @@ class OrderCommentController extends BaseFrontController
 
             return $this->generateRedirectFromRoute("cart.view");
         }
-
     }
 }
