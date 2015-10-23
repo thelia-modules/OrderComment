@@ -9,6 +9,10 @@ use Thelia\Controller\Front\BaseFrontController;
 use Thelia\Core\Translation\Translator;
 use Thelia\Form\Exception\FormValidationException;
 
+/**
+ * Class OrderCommentController
+ * @package OrderComment\Controller
+ */
 class OrderCommentController extends BaseFrontController
 {
     public function setComment()
@@ -32,7 +36,7 @@ class OrderCommentController extends BaseFrontController
         } catch (PropelException $e) {
             $this->getParserContext()->setGeneralError($e->getMessage());
         } catch (\Exception $e) {
-            $message = Translator::getInstance()->trans("Sorry, an error occured: %s", ['%s' => $e->getMessage()], Front::MESSAGE_DOMAIN);
+            $message = Translator::getInstance()->trans("Sorry, an error occurred: %s", ['%s' => $e->getMessage()], Front::MESSAGE_DOMAIN);
         }
 
         if ($message !== false) {
