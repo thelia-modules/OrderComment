@@ -5,26 +5,13 @@
         xsi:schemaLocation="http://thelia.net/schema/dic/config http://thelia.net/schema/dic/config/thelia-1.0.xsd">
 
     <loops>
-        <!-- sample definition
-        <loop name="MySuperLoop" class="MyModule\Loop\MySuperLoop" />
-        -->
         <loop name="order.comment.comment" class="OrderComment\Loop\OrderCommentLoop"/>
         <loop name="order.comment.session.comment" class="OrderComment\Loop\SessionOrderCommentLoop"/>
     </loops>
 
     <forms>
-        <!--
-        <form name="MyFormName" class="MyModule\Form\MySuperForm" />
-        -->
         <form name="order.comment.form" class="OrderComment\Form\CommentForm" />
     </forms>
-
-    <commands>
-        <!--
-        <command class="MyModule\Command\MySuperCommand" />
-        -->
-    </commands>
-
 
     <services>
         <service id="order.comment.order.info" class="OrderComment\EventListeners\OrderInfo" scope="request">
@@ -33,16 +20,16 @@
         </service>
     </services>
 
+    <hooks>
+        <hook id="order.comment.hook.back" class="OrderComment\Hook\BackHook" scope="request">
+            <tag name="hook.event_listener" type="back" event="order-edit.after-order-product-list" method="onOrderEditAfterOrderProductList"/>
+            <tag name="hook.event_listener" type="back" event="order-edit.bill-bottom" method="onOrderEditBillBottom"/>
+            <tag name="hook.event_listener" type="back" event="order.tab-content" method="onOrderTabContent"/>
+        </hook>
+        <hook id="order.comment.hook.front" class="OrderComment\Hook\FrontHook" scope="request">
+            <tag name="hook.event_listener" type="front" event="cart.bottom" method="onCartBottom"/>
+            <tag name="hook.event_listener" type="front" event="cart.after-javascript-include" method="onCartIncludeJs"/>
+        </hook>
+    </hooks>
 
-    <!--
-    <exports>
-
-    </exports>
-    -->
-
-    <!--
-    <imports>
-
-    </imports>
-    -->
 </config>

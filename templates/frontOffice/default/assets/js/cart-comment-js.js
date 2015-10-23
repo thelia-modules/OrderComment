@@ -1,0 +1,1 @@
+$('#cart > a').slice(-2).remove();

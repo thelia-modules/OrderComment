@@ -8,6 +8,10 @@ use Thelia\Core\Event\Order\OrderEvent;
 use Thelia\Core\Event\TheliaEvents;
 use Thelia\Core\HttpFoundation\Request;
 
+/**
+ * Class OrderInfo
+ * @package OrderComment\EventListeners
+ */
 class OrderInfo implements EventSubscriberInterface
 {
     protected $request;

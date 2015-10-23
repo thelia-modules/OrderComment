@@ -19,37 +19,6 @@ Add it in your main thelia composer.json file
 composer require thelia/order-comment-module:~1.0
 ```
 
-## Usage
-
-To use this module, you have to include a new form into the ```cart.html``` template like this :
-
-```
-{form name="order.comment.form"}
-    <form id="order-comment-form" action="{url path='/ordercomment/set/comment'}" method="post">
-        {form_hidden_fields form=$form}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                {intl l="Add your comment" d="ordercomment"}
-            </div>
-            <div class="panel-body">
-                {if $form_error}<div class="alert alert-danger">{$form_error_message}</div>{/if}
-                <div id="alert-comment"></div>
-                {form_field form=$form field='comment'}
-                    <textarea class="form-control" name="{$name}" placeholder="{intl l='Type your message here' d='ordercomment'}">{loop type="order.comment.session.comment" name="session-order-comment" }{ifloop rel="session-order-comment"}{$ORDER_COMMENT}{/ifloop}{/loop}</textarea>
-                {/form_field}
-            </div>
-        </div>
-
-        <a href="{navigate to="index"}" role="button" class="btn btn-continue-shopping"><span>{intl l="Continue Shopping"}</span></a>
-        <button type="submit" class="btn btn-checkout">{intl l="Proceed checkout"}</button>
-    </form>
-{/form}
-```
-
-**Take care to replace the link "Proceed checkout" by a submit type button**
-
-And that's it !
-
 ## Loop
 
 OrderCommentLoop : order.comment.comment
