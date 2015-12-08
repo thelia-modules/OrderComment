@@ -30,6 +30,9 @@
             <tag name="hook.event_listener" type="front" event="cart.bottom" method="onCartBottom"/>
             <tag name="hook.event_listener" type="front" event="cart.after-javascript-include" method="onCartIncludeJs"/>
         </hook>
+        <hook id="order.comment.hook.pdf" class="OrderComment\Hook\PdfHook" scope="request">
+            <tag name="hook.event_listener" type="pdf" event="delivery.after-summary" method="onDeliveryAfterSummary"/>
+        </hook>
     </hooks>
 
 </config>
