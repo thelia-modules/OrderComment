@@ -1,0 +1,11 @@
+{loop type="order.comment.comment" name="order_comment_loop" order_id="$order_id" }
+    <table style="border:1px solid #333; margin:0; padding:0;">
+        <col style="padding: 0mm 3mm;" />
+        <tr>
+            <td class="table-3-module" style="border-left:solid 3px #f6993c;">
+                <strong>{intl l="Message" d="ordercomment.bo.default"}</strong> :<br />
+                {$ORDER_COMMENT|nl2br nofilter}
+            </td>
+        </tr>
+    </table>
+{/loop}
