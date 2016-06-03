@@ -29,6 +29,7 @@
         <hook id="order.comment.hook.front" class="OrderComment\Hook\FrontHook" scope="request">
             <tag name="hook.event_listener" type="front" event="cart.bottom" method="onCartBottom"/>
             <tag name="hook.event_listener" type="front" event="cart.after-javascript-include" method="onCartIncludeJs"/>
+            <tag name="hook.event_listener" type="front" event="order-delivery.bottom" method="onDeliveryBottom"/>
         </hook>
         <hook id="order.comment.hook.pdf" class="OrderComment\Hook\PdfHook" scope="request">
             <tag name="hook.event_listener" type="pdf" event="delivery.after-summary" method="onDeliveryAfterSummary"/>
