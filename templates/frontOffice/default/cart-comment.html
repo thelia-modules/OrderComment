@@ -12,6 +12,7 @@
                 {form_field form=$form field='comment'}
                     <textarea class="form-control" name="{$name}" placeholder="{intl l='Type your message here' d='ordercomment.fo.default'}">{loop type="order.comment.session.comment" name="session-order-comment" }{ifloop rel="session-order-comment"}{$ORDER_COMMENT}{/ifloop}{/loop}</textarea>
                 {/form_field}
+
             </div>
         </div>
 

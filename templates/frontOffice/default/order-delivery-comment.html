@@ -1,0 +1,41 @@
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modaleComm">
+  {intl l="Ajouter un commentaire"}
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modaleComm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Ajouter votre commentaire</h4>
+            </div>
+            <div class="modal-body">
+                {form name="order.comment.form"}
+                <form id="order-comment-form" action="{url path='/ordercomment/set/comment'}" method="post">
+                    {form_hidden_fields form=$form}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {intl l="Add your comment" d="ordercomment.fo.default"}
+                        </div>
+                        <div class="panel-body">
+                            {if $form_error}<div class="alert alert-danger">{$form_error_message}</div>{/if}
+
+                            <div id="alert-comment"></div>
+                            {form_field form=$form field='comment'}
+                            <textarea class="form-control" name="{$name}" placeholder="{intl l='Type your message here' d='ordercomment.fo.default'}">{loop type="order.comment.session.comment" name="session-order-comment" }{ifloop rel="session-order-comment"}{$ORDER_COMMENT}{/ifloop}{/loop}</textarea>
+                            {/form_field}
+
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-chevron-right"></i> {intl l="Valider"}</button>
+                </form>
+                {/form}
+            </div>
+
+        </div>
+    </div>
+</div>

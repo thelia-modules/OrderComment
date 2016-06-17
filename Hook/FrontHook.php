@@ -31,4 +31,13 @@ class FrontHook extends BaseHook
     {
         $event->add(($this->addJS("assets/js/cart-comment-js.js")));
     }
+    public function onDeliveryBottom (HookRenderEvent $event)
+    {
+        $event->add($this->render("order-delivery-comment.html"));
+    }
+    public function onOrderDeliveryIncludeJs(HookRenderEvent $event)
+    {
+        $event->add(($this->addJS("assets/js/order-delivery-comment-js.js")));
+    }
+
 }

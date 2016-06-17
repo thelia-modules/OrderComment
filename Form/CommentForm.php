@@ -16,6 +16,7 @@ class CommentForm extends BaseForm
                     'required' => false
                 )
             );
+        
     }
 
     public function getName()
