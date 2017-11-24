@@ -2,13 +2,19 @@
 
 namespace OrderComment\Form;
 
+use Symfony\Component\Form\FormBuilderInterface;
 use Thelia\Form\BaseForm;
 
 class CommentForm extends BaseForm
 {
     public function buildForm()
     {
-        $this->formBuilder
+        self::addCommentFormField($this->formBuilder);
+    }
+
+    public static function addCommentFormField(FormBuilderInterface $formBuilder)
+    {
+        $formBuilder
             ->add(
                 'comment',
                 'textarea',

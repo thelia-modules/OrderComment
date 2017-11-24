@@ -1,0 +1,10 @@
+{form name="order.comment.form"}
+    <form id="order-comment-form" action="{url path='/ordercomment/set/comment'}" method="post">
+        {form_hidden_fields form=$form}
+
+        {include file="OrderComment/comment-input.html"}
+
+        <a href="{navigate to="index"}" role="button" class="btn btn-default"><i class="fa fa-chevron-left"></i> {intl l="Continue Shopping"}</a>
+        <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-chevron-right"></i> {intl l="Proceed checkout"}</button>
+    </form>
+{/form}

@@ -24,15 +24,16 @@ class FrontHook extends BaseHook
 {
     public function onCartBottom(HookRenderEvent $event)
     {
-        $event->add($this->render("cart-comment.html"));
+        $event->add($this->render("OrderComment/cart-comment.html"));
     }
 
     public function onCartIncludeJs(HookRenderEvent $event)
     {
-        $event->add(($this->addJS("assets/js/cart-comment-js.js")));
+        $event->add(($this->addJS("OrderComment/assets/js/cart-comment-js.js")));
     }
-    public function onDeliveryBottom (HookRenderEvent $event)
+
+    public function onDeliveryFormBottom(HookRenderEvent $event)
     {
-        $event->add($this->render("cart-comment.html"));
+        $event->add($this->render("OrderComment/comment-input.html"));
     }
 }
