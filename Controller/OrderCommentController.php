@@ -22,10 +22,10 @@ class OrderCommentController extends BaseFrontController
 
         try {
             $form = $this->validateForm($commentForm);
-            $data = $form->getData($form);
+            $data = $form->getData();
             $comment = $data['comment'];
 
-            if ($comment != null) {
+            if (!empty($comment)) {
                 $this->getRequest()->getSession()->set('order-comment', $comment);
             }
 

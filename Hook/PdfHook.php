@@ -32,5 +32,4 @@ class PdfHook extends BaseHook
 
         $event->add($this->render('delivery.after-summary.html', ['order_id' => $order_id]));
     }
-
 }
