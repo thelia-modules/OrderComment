@@ -1,7 +1,6 @@
 <?php
 
 return array(
-    'Comment' => 'Comment',
-    'Message' => 'Message',
+    'Customer comment' => 'Customer comment',
     'No comment for this order was defined.' => 'No comment for this order was defined.',
 );
