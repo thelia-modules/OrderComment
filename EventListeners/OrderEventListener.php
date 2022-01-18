@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of the Thelia package.
+ * http://www.thelia.net
+ *
+ * (c) OpenStudio <info@thelia.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace OrderComment\EventListeners;
 
 use OrderComment\Model\OrderComment;
@@ -13,7 +23,6 @@ class OrderEventListener implements EventSubscriberInterface
     /** @var RequestStack */
     protected $requestStack;
 
-
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
@@ -21,18 +30,18 @@ class OrderEventListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            TheliaEvents::ORDER_AFTER_CREATE => array('onOrderCreate', 128),
-            TheliaEvents::ORDER_SET_DELIVERY_MODULE => array('onOrderSetDeliveryModule', 128),
-        );
+        return [
+            TheliaEvents::ORDER_PRODUCT_AFTER_CREATE => ['onOrderCreate', 128],
+            TheliaEvents::ORDER_SET_DELIVERY_MODULE => ['onOrderSetDeliveryModule', 128],
+        ];
     }
 
-    public function onOrderSetDeliveryModule(OrderEvent $event)
+    public function onOrderSetDeliveryModule(OrderEvent $event): void
     {
         $request = $this->requestStack->getCurrentRequest();
         $form = $request->request->get(OrderFormListener::THELIA_ORDER_DELIVERY_FORM_NAME);
 
-        if (is_null($form) or !array_key_exists(OrderFormListener::ORDER_COMMENT_FORM_FIELD_NAME, $form)) {
+        if (null === $form || !\array_key_exists(OrderFormListener::ORDER_COMMENT_FORM_FIELD_NAME, $form)) {
             return;
         }
 
@@ -43,7 +52,7 @@ class OrderEventListener implements EventSubscriberInterface
         }
     }
 
-    public function onOrderCreate(OrderEvent $event)
+    public function onOrderCreate(OrderEvent $event): void
     {
         $session = $this->requestStack->getCurrentRequest()->getSession();
         $comment = $session->get('order-comment', null);

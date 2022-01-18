@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database defaultIdMethod="native" name="thelia" namespace="OrderComment\Model">
+<database defaultIdMethod="native" name="TheliaMain" namespace="OrderComment\Model">
     <table name="order_comment">
         <column autoIncrement="true" name="id" primaryKey="true" required="true" type="INTEGER" />
         <column name="order_id" required="true" type="INTEGER" />

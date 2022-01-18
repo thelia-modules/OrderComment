@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of the Thelia package.
+ * http://www.thelia.net
+ *
+ * (c) OpenStudio <info@thelia.net>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace OrderComment\Loop;
 
 use OrderComment\Model\OrderCommentQuery;
@@ -23,7 +33,7 @@ class OrderCommentLoop extends BaseLoop implements PropelSearchLoopInterface
     }
 
     /**
-     * this method returns a Propel ModelCriteria
+     * this method returns a Propel ModelCriteria.
      *
      * @return \Propel\Runtime\ActiveQuery\ModelCriteria
      */
@@ -35,8 +45,6 @@ class OrderCommentLoop extends BaseLoop implements PropelSearchLoopInterface
     }
 
     /**
-     * @param LoopResult $loopResult
-     *
      * @return LoopResult
      */
     public function parseResults(LoopResult $loopResult)
@@ -45,7 +53,7 @@ class OrderCommentLoop extends BaseLoop implements PropelSearchLoopInterface
         foreach ($loopResult->getResultDataCollection() as $orderComment) {
             $loopResultRow = new LoopResultRow($orderComment);
 
-            $loopResultRow->set("ORDER_COMMENT", $orderComment->getComment());
+            $loopResultRow->set('ORDER_COMMENT', $orderComment->getComment());
             $loopResult->addRow($loopResultRow);
         }
 
