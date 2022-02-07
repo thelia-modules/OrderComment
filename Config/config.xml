@@ -10,18 +10,8 @@
     </loops>
 
     <forms>
-        <form name="order.comment.form" class="OrderComment\Form\CommentForm" />
+        <form name="order_comment_form" class="OrderComment\Form\CommentForm" />
     </forms>
-
-    <services>
-        <service id="order.comment.order.form" class="OrderComment\EventListeners\OrderFormListener">
-            <tag name="kernel.event_subscriber"/>
-        </service>
-        <service id="order.comment.order.event" class="OrderComment\EventListeners\OrderEventListener">
-            <argument type="service" id="request_stack" />
-            <tag name="kernel.event_subscriber"/>
-        </service>
-    </services>
 
     <hooks>
         <hook id="order.comment.hook.back" class="OrderComment\Hook\BackHook" scope="request">
