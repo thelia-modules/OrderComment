@@ -39,7 +39,7 @@ class OrderEventListener implements EventSubscriberInterface
     public function onOrderSetDeliveryModule(OrderEvent $event): void
     {
         $request = $this->requestStack->getCurrentRequest();
-        $form = $request->request->get(OrderFormListener::THELIA_ORDER_DELIVERY_FORM_NAME);
+        $form = $request->get(OrderFormListener::THELIA_ORDER_DELIVERY_FORM_NAME);
 
         if (null === $form || !\array_key_exists(OrderFormListener::ORDER_COMMENT_FORM_FIELD_NAME, $form)) {
             return;
