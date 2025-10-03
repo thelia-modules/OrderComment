@@ -10,14 +10,14 @@ use Thelia\Core\Template\Loop\Argument\ArgumentCollection;
 
 class SessionOrderCommentLoop extends BaseLoop implements ArraySearchLoopInterface
 {
-    public function buildArray()
+    public function buildArray(): array
     {
         $item = ['comment' => $this->requestStack->getSession()->get('order-comment')];
 
         return $item;
     }
 
-    public function parseResults(LoopResult $loopResult)
+    public function parseResults(LoopResult $loopResult): LoopResult
     {
         $item = $loopResult->getResultDataCollection();
 
@@ -29,7 +29,7 @@ class SessionOrderCommentLoop extends BaseLoop implements ArraySearchLoopInterfa
         return $loopResult;
     }
 
-    public function getArgDefinitions()
+    public function getArgDefinitions(): ArgumentCollection
     {
         return new ArgumentCollection();
     }

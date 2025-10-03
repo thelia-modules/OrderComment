@@ -19,35 +19,25 @@ use Thelia\Core\Template\Element\LoopResultRow;
 use Thelia\Core\Template\Element\PropelSearchLoopInterface;
 use Thelia\Core\Template\Loop\Argument\Argument;
 use Thelia\Core\Template\Loop\Argument\ArgumentCollection;
+use Propel\Runtime\ActiveQuery\ModelCriteria;
 
 class OrderCommentLoop extends BaseLoop implements PropelSearchLoopInterface
 {
-    /**
-     * @return \Thelia\Core\Template\Loop\Argument\ArgumentCollection
-     */
-    protected function getArgDefinitions()
+    protected function getArgDefinitions(): ArgumentCollection
     {
         return new ArgumentCollection(
             Argument::createIntTypeArgument('order_id', null, true)
         );
     }
 
-    /**
-     * this method returns a Propel ModelCriteria.
-     *
-     * @return \Propel\Runtime\ActiveQuery\ModelCriteria
-     */
-    public function buildModelCriteria()
+    public function buildModelCriteria(): ModelCriteria
     {
         $orderCommentQuery = OrderCommentQuery::create()->filterByOrderId($this->getOrderId());
 
         return $orderCommentQuery;
     }
 
-    /**
-     * @return LoopResult
-     */
-    public function parseResults(LoopResult $loopResult)
+    public function parseResults(LoopResult $loopResult): LoopResult
     {
         /** @var \OrderComment\Model\OrderComment $orderComment */
         foreach ($loopResult->getResultDataCollection() as $orderComment) {

@@ -35,7 +35,7 @@ class CommentForm extends BaseForm
             );
     }
 
-    public static function getName()
+    public static function getName(): string
     {
         return 'order_comment_form';
     }

@@ -22,7 +22,7 @@ namespace OrderComment;
 use OrderComment\Model\OrderCommentQuery;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
-use Thelia\Install\Database;
+use Thelia\Core\Install\Database;
 use Thelia\Module\BaseModule;
 
 class OrderComment extends BaseModule
@@ -33,7 +33,7 @@ class OrderComment extends BaseModule
             OrderCommentQuery::create()->findOne();
         } catch (\Exception $e) {
             $database = new Database($con->getWrappedConnection());
-            $database->insertSql(null, [THELIA_ROOT.'/local/modules/OrderComment/Config/thelia.sql']);
+            $database->insertSql(null, [__DIR__.'/Config/TheliaMain.sql']);
         }
     }
 
