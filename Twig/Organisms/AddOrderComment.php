@@ -22,11 +22,7 @@ class AddOrderComment extends AbstractController
     #[LiveProp(writable: true)]
     public string $comment = '';
 
-    #[LiveProp]
-    public ?int $orderId = null;
-
-    #[LiveProp]
-    public ?string $cartToken = null;
+    public ?int $cartId = null;
 
 
     public function __construct(
@@ -38,13 +34,8 @@ class AddOrderComment extends AbstractController
     public function mount(): void
     {
         $session = $this->requestStack->getSession();
-        $request = $this->requestStack->getCurrentRequest();
-
-        $this->orderId = $session->get('order_id');
-
-        $this->cartToken = $request?->cookies->get('thelia_cart');
-
         $existingComment = $session->get('order_comment', '');
+
         if ($existingComment && empty($this->comment)) {
             $this->comment = $existingComment;
         }
@@ -52,13 +43,7 @@ class AddOrderComment extends AbstractController
 
     protected function instantiateForm(): FormInterface
     {
-        $form = $this->formService->getFormByName('order_comment_form');
-
-        $form->setData([
-            'comment' => $this->comment,
-        ]);
-
-        return $form;
+        return $this->formService->getFormByName('order_comment_form');
     }
 
     #[LiveAction]
@@ -70,7 +55,7 @@ class AddOrderComment extends AbstractController
                 $data = $this->getForm()->getData();
 
                 $this->comment = $data['comment'];
-                $this->orderCommentService->saveComment($this->orderId, $this->cartToken, $this->comment);
+                $this->orderCommentService->saveComment($this->comment);
 
             }
         } catch (\Exception $e) {

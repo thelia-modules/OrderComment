@@ -1,15 +1,9 @@
 <div class="AddOrderComment" {{ attributes }}>
-	{% set orderCommentContent %}
-	{{ form_start(form, {
+        {{ form_start(form, {
             attr: {
-                'data-controller': 'live',
                 'data-action': 'live#action:prevent',
                 'data-live-action-param': 'save'
             }
         }) }}
-	{{ form_rest(form) }}
-	{{ form_end(form) }}
-	{% endset %}
-
-	{{ orderCommentContent }}
+        {{ form_end(form) }}
 </div>

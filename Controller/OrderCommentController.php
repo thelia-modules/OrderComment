@@ -36,7 +36,7 @@ class OrderCommentController extends BaseFrontController
             $comment = $data['comment'];
 
             if (!empty($comment)) {
-                $request->getSession()->set('order-comment', $comment);
+                $request->getSession()->set('order_comment', $comment);
             }
 
             return $this->generateRedirectFromRoute('order.delivery');

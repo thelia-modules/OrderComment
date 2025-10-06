@@ -32,9 +32,7 @@ class OrderCommentLoop extends BaseLoop implements PropelSearchLoopInterface
 
     public function buildModelCriteria(): ModelCriteria
     {
-        $orderCommentQuery = OrderCommentQuery::create()->filterByOrderId($this->getOrderId());
-
-        return $orderCommentQuery;
+        return OrderCommentQuery::create()->filterByOrderId($this->getOrderId());
     }
 
     public function parseResults(LoopResult $loopResult): LoopResult

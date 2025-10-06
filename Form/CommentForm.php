@@ -12,25 +12,27 @@
 
 namespace OrderComment\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Thelia\Core\HttpFoundation\Session\Session;
 use Thelia\Form\BaseForm;
 
 class CommentForm extends BaseForm
 {
-    public function buildForm(): void
+    public function __construct(protected Session $session)
     {
-        self::addCommentFormField($this->formBuilder);
     }
 
-    public static function addCommentFormField(FormBuilderInterface $formBuilder): void
+    public function buildForm(): void
     {
-        $formBuilder
+        $this->formBuilder
             ->add(
                 'comment',
                 TextareaType::class,
                 [
                     'required' => true,
+                    'data' => $this->session?->get('order_comment'),
                     'label' => 'Date et heure du retrait',
                     'attr' => [
                         'placeholder' => 'Indiquez nous la date el l\'heure souhaitées pour le retrait de votre commande',

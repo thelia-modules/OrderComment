@@ -20,44 +20,23 @@ use Thelia\Core\Event\TheliaEvents;
 
 class OrderEventListener implements EventSubscriberInterface
 {
-    /** @var RequestStack */
-    protected $requestStack;
-
-    public function __construct(RequestStack $requestStack)
+    public function __construct(protected RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
-            TheliaEvents::ORDER_PRODUCT_AFTER_CREATE => ['onOrderCreate', 128],
-            TheliaEvents::ORDER_SET_DELIVERY_MODULE => ['onOrderSetDeliveryModule', 128],
+            TheliaEvents::ORDER_PAY => ['onOrderPay', 100],
         ];
     }
 
-    public function onOrderSetDeliveryModule(OrderEvent $event): void
-    {
-        $request = $this->requestStack->getCurrentRequest();
-        $form = $request->get(OrderFormListener::THELIA_ORDER_DELIVERY_FORM_NAME);
-
-        if (null === $form || !\array_key_exists(OrderFormListener::ORDER_COMMENT_FORM_FIELD_NAME, $form)) {
-            return;
-        }
-
-        $comment = $form[OrderFormListener::ORDER_COMMENT_FORM_FIELD_NAME];
-
-        if (!empty($comment)) {
-            $request->getSession()->set('order-comment', $comment);
-        }
-    }
-
-    public function onOrderCreate(OrderEvent $event): void
+    public function onOrderPay(OrderEvent $event): void
     {
         $session = $this->requestStack->getCurrentRequest()->getSession();
-        $comment = $session->get('order-comment', null);
+        $comment = $session->get('order_comment', null);
 
-        $order = $event->getOrder();
+        $order = $event->getPlacedOrder();
         $orderId = $order->getId();
 
         if ($orderId != null && !empty($comment)) {
@@ -66,7 +45,7 @@ class OrderEventListener implements EventSubscriberInterface
             $orderComment->setComment($comment);
             $orderComment->save();
 
-            $session->set('order-comment', '');
+            $session->set('order_comment', '');
         }
     }
 }

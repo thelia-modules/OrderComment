@@ -12,24 +12,8 @@ readonly class OrderCommentService
     {
     }
 
-    public function saveComment(?int $orderId, ?string $cartToken, string $comment): void
+    public function saveComment(string $comment): void
     {
-        if (trim($comment) === '') {
-            return;
-        }
-
-        $this->session->set('order_comment_'.$cartToken, $comment);
-
-        if ($orderId !== null) {
-            $order = OrderQuery::create()->findPk($orderId);
-            if ($order) {
-                $orderComment = new OrderComment();
-                $orderComment
-                    ->setOrderId($orderId)
-                    ->setComment($comment)
-                    ->save();
-            }
-        }
+        $this->session->set('order_comment', $comment);
     }
-
 }

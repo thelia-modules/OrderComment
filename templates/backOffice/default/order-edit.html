@@ -6,7 +6,7 @@
     </div>
     <div class="panel-body">
         {$comment = ''}
-        {loop type="order.comment.comment" name="order_comment_loop" order_id=$order_id}
+        {loop name="order.comment.comment" type="order_comment_loop" order_id=$order_id}
             {$comment = $ORDER_COMMENT}
         {/loop}
 
