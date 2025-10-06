@@ -1,19 +1,15 @@
-<div {{ attributes }}>
-    {% set orderCommentContent %}
-        {{ form_start(form, {
+<div class="AddOrderComment" {{ attributes }}>
+	{% set orderCommentContent %}
+	{{ form_start(form, {
             attr: {
-                class: 'flex flex-col gap-4 mt-4',
                 'data-controller': 'live',
-                'data-live-id': live_id,
-                'data-action': 'submit->live#action',
+                'data-action': 'live#action:prevent',
                 'data-live-action-param': 'save'
             }
         }) }}
+	{{ form_rest(form) }}
+	{{ form_end(form) }}
+	{% endset %}
 
-        {{ form_rest(form) }}
-
-        {{ form_end(form) }}
-    {% endset %}
-
-    {{ orderCommentContent }}
+	{{ orderCommentContent }}
 </div>
