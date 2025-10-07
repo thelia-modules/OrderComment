@@ -38,16 +38,7 @@ class CommentForm extends BaseForm
                         'placeholder' => 'Indiquez nous la date el l\'heure souhaitées pour le retrait de votre commande',
                     ]
                 ]
-            )
-            ->add('submit', SubmitType::class, [
-                'label' => 'Valider',
-                'attr' => [
-                    'size' => 'medium'
-                ],
-                'row_attr' => [
-                    'class' => 'flex justify-end',
-                ]
-            ]);
+            );
     }
 
     public static function getName(): string

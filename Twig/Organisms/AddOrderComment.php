@@ -24,12 +24,14 @@ class AddOrderComment extends AbstractController
 
     public ?int $cartId = null;
 
+    public bool $message = false;
 
     public function __construct(
         private readonly FormService $formService,
         private readonly RequestStack $requestStack,
         private readonly OrderCommentService $orderCommentService
-    ) {}
+    ) {
+    }
 
     public function mount(): void
     {
@@ -56,10 +58,13 @@ class AddOrderComment extends AbstractController
 
                 $this->comment = $data['comment'];
                 $this->orderCommentService->saveComment($this->comment);
+                $this->message = true;
 
             }
         } catch (\Exception $e) {
             throw new \RuntimeException($e->getMessage());
+            $this->message = false;
+
         }
     }
 }

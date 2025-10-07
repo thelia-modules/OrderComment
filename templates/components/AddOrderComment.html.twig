@@ -1,9 +1,22 @@
 <div class="AddOrderComment" {{ attributes }}>
-        {{ form_start(form, {
-            attr: {
-                'data-action': 'live#action:prevent',
-                'data-live-action-param': 'save'
-            }
-        }) }}
-        {{ form_end(form) }}
+	{{ form_start(form, {
+        attr: {
+            'data-action': 'live#action:prevent',
+            'data-live-action-param': 'save',
+            'data-loading': "addClass(opacity-50)",
+            'class': 'flex flex-col gap-2'
+        }
+    }) }}
+	{{ form_rest(form) }}
+	{% if this.message %}
+		<div data-loading="hide">
+			{{ include('@components/Organisms/SnackBar/SnackBar.html.twig', {
+                text: 'Your message has been saved'|trans,
+                variant: 'validated',
+                withIcon: true
+            }) }}
+		</div>
+	{% endif %}
+	<button type="submit" class="Button Button--medium self-end">{{ 'Confirm'|trans }}</button>
+	{{ form_end(form) }}
 </div>
