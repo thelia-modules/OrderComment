@@ -33,7 +33,7 @@ class CommentForm extends BaseForm
                 [
                     'required' => true,
                     'data' => $this->session?->get('order_comment'),
-                    'label' => 'Date et heure du retrait',
+                    'label' => 'Merci de préciser l\'horaire de retrait souhaitée',
                     'attr' => [
                         'placeholder' => 'Indiquez-nous la date et l\'heure souhaitées pour le retrait de votre commande',
                     ]
