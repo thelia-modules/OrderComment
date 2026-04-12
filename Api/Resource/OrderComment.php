@@ -5,6 +5,8 @@ namespace OrderComment\Api\Resource;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\OpenApi\Model\Operation;
+use ApiPlatform\OpenApi\Model\Parameter;
 use Propel\Runtime\Exception\PropelException;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\Ignore;
@@ -18,17 +20,9 @@ use Propel\Runtime\Map\TableMap;
     operations: [
         new GetCollection(
             uriTemplate: '/admin/order-comments',
-            openapiContext: [
-                'parameters' => [
-                    [
-                        'name' => 'order_id',
-                        'in' => 'query',
-                        'description' => 'Filter comments by order ID',
-                        'required' => false,
-                        'schema' => ['type' => 'integer'],
-                    ],
-                ],
-            ],
+            openapi: new Operation(parameters: [
+                new Parameter(name: 'order_id', in: 'query', description: 'Filter comments by order ID', required: false, schema: ['type' => 'integer']),
+            ]),
             paginationEnabled: false,
         ),
     ],
@@ -38,17 +32,9 @@ use Propel\Runtime\Map\TableMap;
     operations: [
         new GetCollection(
             uriTemplate: '/front/order-comments',
-            openapiContext: [
-                'parameters' => [
-                    [
-                        'name' => 'order_id',
-                        'in' => 'query',
-                        'description' => 'Filter comments by order ID',
-                        'required' => false,
-                        'schema' => ['type' => 'integer'],
-                    ],
-                ],
-            ],
+            openapi: new Operation(parameters: [
+                new Parameter(name: 'order_id', in: 'query', description: 'Filter comments by order ID', required: false, schema: ['type' => 'integer']),
+            ]),
             paginationEnabled: false,
         ),
     ],
@@ -58,17 +44,9 @@ use Propel\Runtime\Map\TableMap;
     operations: [
         new GetCollection(
             uriTemplate: '/front/session/order-comment',
-            openapiContext: [
-                'parameters' => [
-                    [
-                        'name' => 'order_id',
-                        'in' => 'query',
-                        'description' => 'Filter comments by order ID',
-                        'required' => false,
-                        'schema' => ['type' => 'integer'],
-                    ],
-                ],
-            ],
+            openapi: new Operation(parameters: [
+                new Parameter(name: 'order_id', in: 'query', description: 'Filter comments by order ID', required: false, schema: ['type' => 'integer']),
+            ]),
             paginationEnabled: false,
         ),
     ],

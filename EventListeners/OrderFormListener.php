@@ -24,7 +24,7 @@ class OrderFormListener implements EventSubscriberInterface
 
     const ORDER_COMMENT_FORM_FIELD_NAME = 'comment';
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             TheliaEvents::FORM_AFTER_BUILD.'.'.self::THELIA_ORDER_DELIVERY_FORM_NAME => ['addCommentFieldForDelivery', 128],
