@@ -11,7 +11,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use OrderComment\Service\OrderCommentService;
-use TwigEngine\Service\FormService;
+use Thelia\Core\Form\FormServiceInterface;
 
 #[AsLiveComponent(name: 'AddOrderComment', template: '@OrderCommentModule/components/AddOrderComment.html.twig')]
 class AddOrderComment extends AbstractController
@@ -27,7 +27,7 @@ class AddOrderComment extends AbstractController
     public bool $message = false;
 
     public function __construct(
-        private readonly FormService $formService,
+        private readonly FormServiceInterface $formService,
         private readonly RequestStack $requestStack,
         private readonly OrderCommentService $orderCommentService
     ) {
