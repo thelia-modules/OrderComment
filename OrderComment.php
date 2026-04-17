@@ -29,10 +29,10 @@ class OrderComment extends BaseModule
 {
     public function postActivation(ConnectionInterface $con = null): void
     {
-        try {
-            OrderCommentQuery::create()->findOne();
-        } catch (\Exception $e) {
-            $database = new Database($con->getWrappedConnection());
+        $wrapped = $con->getWrappedConnection();
+        $stmt = $wrapped->query("SHOW TABLES LIKE 'order_comment'");
+        if ($stmt->fetchColumn() === false) {
+            $database = new Database($wrapped);
             $database->insertSql(null, [__DIR__.'/Config/TheliaMain.sql']);
         }
     }
