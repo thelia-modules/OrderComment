@@ -12,12 +12,14 @@ use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use OrderComment\Service\OrderCommentService;
 use Thelia\Core\Form\FormServiceInterface;
+use Symfony\UX\LiveComponent\ComponentToolsTrait;
 
 #[AsLiveComponent(name: 'AddOrderComment', template: '@OrderCommentModule/components/AddOrderComment.html.twig')]
 class AddOrderComment extends AbstractController
 {
     use DefaultActionTrait;
     use ComponentWithFormTrait;
+    use ComponentToolsTrait;
 
     #[LiveProp(writable: true)]
     public string $comment = '';
@@ -59,6 +61,7 @@ class AddOrderComment extends AbstractController
                 $this->comment = $data['comment'];
                 $this->orderCommentService->saveComment($this->comment);
                 $this->message = true;
+                $this->emit('updateNextButton');
 
             }
         } catch (\Exception $e) {
