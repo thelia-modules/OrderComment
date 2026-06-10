@@ -12,6 +12,7 @@
 
 namespace OrderComment\Hook;
 
+use OrderComment\Model\OrderCommentQuery;
 use Thelia\Core\Event\Hook\HookRenderEvent;
 use Thelia\Core\Hook\BaseHook;
 
@@ -22,22 +23,46 @@ use Thelia\Core\Hook\BaseHook;
  */
 class BackHook extends BaseHook
 {
-    public function onOrderEditAfterOrderProductList(HookRenderEvent $event)
+    public static function getSubscribedHooks(): array
     {
-        $content = $this->render("order-edit.html");
-        $event->add($content);
+        return [
+            'order-edit.after-order-product-list' => [
+                ['type' => 'back', 'method' => 'onOrderEditAfterOrderProductList'],
+            ],
+            'order-edit.bill-bottom' => [
+                ['type' => 'back', 'method' => 'onOrderEditBillBottom'],
+            ],
+            'order.tab-content' => [
+                ['type' => 'back', 'method' => 'onOrderTabContent'],
+            ],
+        ];
     }
 
-    public function onOrderEditBillBottom(HookRenderEvent $event)
+    public function onOrderEditAfterOrderProductList(HookRenderEvent $event): void
     {
-        $content = $this->render("order-edit.html");
-        $event->add($content);
+        $event->add($this->renderComment($event));
     }
 
-    public function onOrderTabContent(HookRenderEvent $event)
+    public function onOrderEditBillBottom(HookRenderEvent $event): void
     {
-        $content = $this->render("order-edit.html");
-        $event->add($content);
+        $event->add($this->renderComment($event));
     }
 
+    public function onOrderTabContent(HookRenderEvent $event): void
+    {
+        $event->add($this->renderComment($event));
+    }
+
+    private function renderComment(HookRenderEvent $event): string
+    {
+        $orderId = (int) $event->getArgument('order_id', null);
+
+        $orderComment = $orderId > 0
+            ? OrderCommentQuery::create()->filterByOrderId($orderId)->findOne()
+            : null;
+
+        return $this->render('OrderComment/order-edit.html.twig', [
+            'comment' => $orderComment?->getComment(),
+        ]);
+    }
 }

@@ -22,10 +22,15 @@ use Thelia\Core\Hook\BaseHook;
  */
 class PdfHook extends BaseHook
 {
+    public static function getSubscribedHooks(): array
+    {
+        return [
+            'delivery.after-summary' => [
+                ['type' => 'pdf', 'method' => 'onDeliveryAfterSummary'],
+            ],
+        ];
+    }
 
-    /**
-     * @param HookRenderEvent $event
-     */
     public function onDeliveryAfterSummary(HookRenderEvent $event)
     {
         $order_id = intval($event->getArgument('order', null));

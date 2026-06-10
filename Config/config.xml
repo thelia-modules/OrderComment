@@ -9,24 +9,4 @@
         <loop name="order.comment.session.comment" class="OrderComment\Loop\SessionOrderCommentLoop"/>
     </loops>
 
-    <forms>
-        <form name="order_comment_form" class="OrderComment\Form\CommentForm" />
-    </forms>
-
-    <hooks>
-        <hook id="order.comment.hook.back" class="OrderComment\Hook\BackHook" scope="request">
-            <tag name="hook.event_listener" type="back" event="order-edit.after-order-product-list" method="onOrderEditAfterOrderProductList"/>
-            <tag name="hook.event_listener" type="back" event="order-edit.bill-bottom" method="onOrderEditBillBottom"/>
-            <tag name="hook.event_listener" type="back" event="order.tab-content" method="onOrderTabContent"/>
-        </hook>
-        <hook id="order.comment.hook.front" class="OrderComment\Hook\FrontHook" scope="request">
-            <tag name="hook.event_listener" type="front" event="cart.bottom" method="onCartBottom"/>
-            <tag name="hook.event_listener" type="front" event="cart.after-javascript-include" method="onCartIncludeJs"/>
-            <tag name="hook.event_listener" type="front" event="order-delivery.form-bottom" method="onDeliveryFormBottom"/>
-        </hook>
-        <hook id="order.comment.hook.pdf" class="OrderComment\Hook\PdfHook" scope="request">
-            <tag name="hook.event_listener" type="pdf" event="delivery.after-summary" method="onDeliveryAfterSummary"/>
-        </hook>
-    </hooks>
-
 </config>

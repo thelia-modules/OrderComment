@@ -1,0 +1,14 @@
+<div class="card mb-3">
+    <div class="card-header">
+        <h3 class="card-title mb-0">
+            {{ 'Customer comment'|trans({}, 'ordercomment.bo.default') }}
+        </h3>
+    </div>
+    <div class="card-body">
+        {% if comment %}
+            {{ comment|nl2br }}
+        {% else %}
+            {{ 'No comment for this order was defined.'|trans({}, 'ordercomment.bo.default') }}
+        {% endif %}
+    </div>
+</div>

@@ -22,6 +22,21 @@ use Thelia\Core\Hook\BaseHook;
  */
 class FrontHook extends BaseHook
 {
+    public static function getSubscribedHooks(): array
+    {
+        return [
+            'cart.bottom' => [
+                ['type' => 'front', 'method' => 'onCartBottom'],
+            ],
+            'cart.after-javascript-include' => [
+                ['type' => 'front', 'method' => 'onCartIncludeJs'],
+            ],
+            'order-delivery.form-bottom' => [
+                ['type' => 'front', 'method' => 'onDeliveryFormBottom'],
+            ],
+        ];
+    }
+
     public function onCartBottom(HookRenderEvent $event)
     {
         $event->add($this->render("OrderComment/cart-comment.html"));
