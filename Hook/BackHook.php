@@ -13,6 +13,7 @@
 namespace OrderComment\Hook;
 
 use OrderComment\Model\OrderCommentQuery;
+use Thelia\Core\Event\Hook\HookRenderBlockEvent;
 use Thelia\Core\Event\Hook\HookRenderEvent;
 use Thelia\Core\Hook\BaseHook;
 
@@ -48,12 +49,16 @@ class BackHook extends BaseHook
         $event->add($this->renderComment($event));
     }
 
-    public function onOrderTabContent(HookRenderEvent $event): void
+    public function onOrderTabContent(HookRenderBlockEvent $event): void
     {
-        $event->add($this->renderComment($event));
+        $event->add([
+            'id' => 'order_comment_tab',
+            'title' => $this->trans('Customer comment', [], 'ordercomment.bo.default'),
+            'content' => $this->renderComment($event),
+        ]);
     }
 
-    private function renderComment(HookRenderEvent $event): string
+    private function renderComment(HookRenderEvent|HookRenderBlockEvent $event): string
     {
         $orderId = (int) $event->getArgument('order_id', null);
 
