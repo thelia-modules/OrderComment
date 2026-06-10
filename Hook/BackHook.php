@@ -36,7 +36,15 @@ class BackHook extends BaseHook
             'order.tab-content' => [
                 ['type' => 'back', 'method' => 'onOrderTabContent'],
             ],
+            'module.configuration' => [
+                ['type' => 'back', 'method' => 'onModuleConfiguration'],
+            ],
         ];
+    }
+
+    public function onModuleConfiguration(HookRenderEvent $event): void
+    {
+        $event->add($this->render('OrderComment/module-configuration.html.twig'));
     }
 
     public function onOrderEditAfterOrderProductList(HookRenderEvent $event): void
