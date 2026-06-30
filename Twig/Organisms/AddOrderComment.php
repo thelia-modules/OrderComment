@@ -67,10 +67,8 @@ class AddOrderComment extends AbstractController
                 $this->emit('updateNextButton');
 
             }
-        } catch (\Exception $e) {
-            throw new \RuntimeException($e->getMessage());
+        } catch (\Exception) {
             $this->message = false;
-
         }
     }
 }
