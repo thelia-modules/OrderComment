@@ -44,6 +44,7 @@ class OrderCommentController extends BaseFrontController
             $message = Translator::getInstance()->trans('Please check your input: %s', ['%s' => $e->getMessage()], Front::MESSAGE_DOMAIN);
         } catch (PropelException $e) {
             $this->getParserContext()->setGeneralError($e->getMessage());
+            $message = Translator::getInstance()->trans('Sorry, a database error occurred: %s', ['%s' => $e->getMessage()], Front::MESSAGE_DOMAIN);
         } catch (\Exception $e) {
             $message = Translator::getInstance()->trans('Sorry, an error occurred: %s', ['%s' => $e->getMessage()], Front::MESSAGE_DOMAIN);
         }
