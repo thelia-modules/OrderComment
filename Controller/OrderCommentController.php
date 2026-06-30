@@ -35,7 +35,7 @@ class OrderCommentController extends BaseFrontController
             $data = $form->getData();
             $comment = $data['comment'];
 
-            if (!empty($comment)) {
+            if (!empty($comment) && $request->hasSession()) {
                 $request->getSession()->set('order_comment', $comment);
             }
 

@@ -12,7 +12,11 @@ readonly class SessionOrderCommentProvider implements ProviderInterface
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): array
     {
-        $comment = $this->requestStack->getSession()->get('order-comment');
+        $request = $this->requestStack->getCurrentRequest();
+        if (null === $request || !$request->hasSession()) {
+            return [];
+        }
+        $comment = $request->getSession()->get('order-comment');
 
         return $comment ? [$comment] : [];
     }

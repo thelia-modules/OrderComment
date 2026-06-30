@@ -12,9 +12,12 @@ class SessionOrderCommentLoop extends BaseLoop implements ArraySearchLoopInterfa
 {
     public function buildArray(): array
     {
-        $item = ['comment' => $this->requestStack->getSession()->get('order_comment')];
+        $request = $this->requestStack->getCurrentRequest();
+        $comment = (null !== $request && $request->hasSession())
+            ? $request->getSession()->get('order_comment')
+            : null;
 
-        return $item;
+        return ['comment' => $comment];
     }
 
     public function parseResults(LoopResult $loopResult): LoopResult

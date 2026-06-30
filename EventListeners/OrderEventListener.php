@@ -33,7 +33,11 @@ class OrderEventListener implements EventSubscriberInterface
 
     public function onOrderPay(OrderEvent $event): void
     {
-        $session = $this->requestStack->getCurrentRequest()->getSession();
+        $request = $this->requestStack->getCurrentRequest();
+        if (null === $request || !$request->hasSession()) {
+            return;
+        }
+        $session = $request->getSession();
         $comment = $session->get('order_comment', null);
 
         $order = $event->getPlacedOrder();

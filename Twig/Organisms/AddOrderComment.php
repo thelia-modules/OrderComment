@@ -37,8 +37,11 @@ class AddOrderComment extends AbstractController
 
     public function mount(): void
     {
-        $session = $this->requestStack->getSession();
-        $existingComment = $session->get('order_comment', '');
+        $request = $this->requestStack->getCurrentRequest();
+        if (null === $request || !$request->hasSession()) {
+            return;
+        }
+        $existingComment = $request->getSession()->get('order_comment', '');
 
         if ($existingComment && empty($this->comment)) {
             $this->comment = $existingComment;
