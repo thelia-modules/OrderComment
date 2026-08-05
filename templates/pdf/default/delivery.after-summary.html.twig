@@ -1,0 +1,11 @@
+{% for row in loop('order_comment_loop', 'order.comment.comment', {order_id: order_id}) %}
+    <table style="border:1px solid #333; margin:0; padding:0;">
+        <col style="padding: 0mm 3mm;" />
+        <tr>
+            <td class="table-3-module" style="border-left:solid 3px #f6993c;">
+                <strong>{{ 'Message'|trans({}, 'ordercomment.bo.default') }}</strong> :<br />
+                {{ row.ORDER_COMMENT|nl2br }}
+            </td>
+        </tr>
+    </table>
+{% endfor %}

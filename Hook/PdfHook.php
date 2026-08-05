@@ -35,6 +35,6 @@ class PdfHook extends BaseHook
     {
         $order_id = intval($event->getArgument('order', null));
 
-        $event->add($this->render('delivery.after-summary.html', ['order_id' => $order_id]));
+        $event->add($this->render('delivery.after-summary.html.twig', ['order_id' => $order_id]));
     }
 }
