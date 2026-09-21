@@ -40,18 +40,6 @@ use Propel\Runtime\Map\TableMap;
     ],
     normalizationContext: ['groups' => [self::GROUP_FRONT_READ]]
 )]
-#[ApiResource(
-    operations: [
-        new GetCollection(
-            uriTemplate: '/front/session/order-comment',
-            openapi: new Operation(parameters: [
-                new Parameter(name: 'order_id', in: 'query', description: 'Filter comments by order ID', required: false, schema: ['type' => 'integer']),
-            ]),
-            paginationEnabled: false,
-        ),
-    ],
-    normalizationContext: ['groups' => [self::GROUP_FRONT_READ]]
-)]
 class OrderComment implements PropelResourceInterface
 {
     use PropelResourceTrait;
