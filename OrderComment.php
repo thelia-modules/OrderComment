@@ -27,7 +27,9 @@ use Thelia\Module\BaseModule;
 
 class OrderComment extends BaseModule
 {
-    public function postActivation(ConnectionInterface $con = null): void
+    public const MESSAGE_DOMAIN = 'ordercomment';
+
+    public function postActivation(?ConnectionInterface $con = null): void
     {
         $wrapped = $con->getWrappedConnection();
         $stmt = $wrapped->query("SHOW TABLES LIKE 'order_comment'");
