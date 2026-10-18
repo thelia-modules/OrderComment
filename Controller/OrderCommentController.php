@@ -12,8 +12,8 @@
 
 namespace OrderComment\Controller;
 
-use Front\Front;
 use OrderComment\Form\CommentForm;
+use OrderComment\OrderComment;
 use Propel\Runtime\Exception\PropelException;
 use Thelia\Controller\Front\BaseFrontController;
 use Thelia\Core\HttpFoundation\Request;
@@ -41,12 +41,12 @@ class OrderCommentController extends BaseFrontController
 
             return $this->generateRedirectFromRoute('order.delivery');
         } catch (FormValidationException $e) {
-            $message = Translator::getInstance()->trans('Please check your input: %s', ['%s' => $e->getMessage()], Front::MESSAGE_DOMAIN);
+            $message = Translator::getInstance()->trans('Please check your input: %s', ['%s' => $e->getMessage()], OrderComment::MESSAGE_DOMAIN);
         } catch (PropelException $e) {
             $this->getParserContext()->setGeneralError($e->getMessage());
-            $message = Translator::getInstance()->trans('Sorry, a database error occurred: %s', ['%s' => $e->getMessage()], Front::MESSAGE_DOMAIN);
+            $message = Translator::getInstance()->trans('Sorry, a database error occurred: %s', ['%s' => $e->getMessage()], OrderComment::MESSAGE_DOMAIN);
         } catch (\Exception $e) {
-            $message = Translator::getInstance()->trans('Sorry, an error occurred: %s', ['%s' => $e->getMessage()], Front::MESSAGE_DOMAIN);
+            $message = Translator::getInstance()->trans('Sorry, an error occurred: %s', ['%s' => $e->getMessage()], OrderComment::MESSAGE_DOMAIN);
         }
 
         if ($message !== false) {
