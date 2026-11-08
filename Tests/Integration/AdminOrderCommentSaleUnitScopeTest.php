@@ -25,25 +25,26 @@ final class AdminOrderCommentSaleUnitScopeTest extends ApiTestCase
     {
         parent::setUp();
 
-        $first = $this->factory->saleUnit();
-        $second = $this->factory->saleUnit();
+        $factory = $this->createFixtureFactory();
+        $first = $factory->saleUnit();
+        $second = $factory->saleUnit();
         $connection = $this->getPropelConnection();
 
-        $myOrder = $this->factory->order()->setSaleUnitId($first->getId());
+        $myOrder = $factory->order()->setSaleUnitId($first->getId());
         $myOrder->save($connection);
-        $theirOrder = $this->factory->order()->setSaleUnitId($second->getId());
+        $theirOrder = $factory->order()->setSaleUnitId($second->getId());
         $theirOrder->save($connection);
-        $nationalOrder = $this->factory->order();
+        $nationalOrder = $factory->order();
 
         $this->mine = $this->comment($myOrder->getId());
         $this->theirs = $this->comment($theirOrder->getId());
         $this->national = $this->comment($nationalOrder->getId());
 
-        $restricted = $this->factory->restrictedAdmin(
+        $restricted = $factory->restrictedAdmin(
             [AdminResources::ORDER => [AccessManager::VIEW]],
             ['password' => 'password'],
         );
-        $this->factory->adminSaleUnit($restricted, $first);
+        $factory->adminSaleUnit($restricted, $first);
         $this->restrictedToken = $this->authenticateAsAdmin($restricted);
     }
 
