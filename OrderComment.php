@@ -21,6 +21,7 @@ namespace OrderComment;
 
 use OrderComment\Model\OrderCommentQuery;
 use Propel\Runtime\Connection\ConnectionInterface;
+use OrderComment\DependencyInjection\AdminApiResourcesPass;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
 use Thelia\Core\Install\Database;
 use Thelia\Module\BaseModule;
@@ -39,10 +40,15 @@ class OrderComment extends BaseModule
         }
     }
 
+    public static function getCompilers(): array
+    {
+        return [new AdminApiResourcesPass()];
+    }
+
     public static function configureServices(ServicesConfigurator $servicesConfigurator): void
     {
         $servicesConfigurator->load(self::getModuleCode().'\\', __DIR__)
-            ->exclude([__DIR__.'/I18n/*'])
+            ->exclude([__DIR__.'/I18n/*', __DIR__.'/Tests/*'])
             ->autowire()
             ->autoconfigure();
     }
