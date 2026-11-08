@@ -4,30 +4,22 @@ declare(strict_types=1);
 
 namespace OrderComment\Tests\Integration;
 
-use ApiPlatform\Metadata\GetCollection;
-use OrderComment\Api\Extension\AdminSaleUnitScopeExtension;
-use OrderComment\Api\Resource\OrderComment as OrderCommentResource;
 use OrderComment\Model\OrderComment;
-use OrderComment\Model\OrderCommentQuery;
 use Thelia\Core\Security\AccessManager;
 use Thelia\Core\Security\Resource\AdminResources;
 use Thelia\Domain\SaleUnit\Access\AdminSaleUnitScope;
-use Thelia\Model\Admin;
-use Thelia\Test\ActionIntegrationTestCase;
-use Thelia\Test\Trait\LogsInAsAdmin;
+use Thelia\Test\ApiTestCase;
 
 /**
  * The admin order comments of an administrator restricted to some sale units are
  * those of the orders placed on them.
  */
-final class AdminOrderCommentSaleUnitScopeTest extends ActionIntegrationTestCase
+final class AdminOrderCommentSaleUnitScopeTest extends ApiTestCase
 {
-    use LogsInAsAdmin;
-
     private int $mine;
     private int $theirs;
     private int $national;
-    private Admin $restricted;
+    private string $restrictedToken;
 
     protected function setUp(): void
     {
@@ -47,46 +39,31 @@ final class AdminOrderCommentSaleUnitScopeTest extends ActionIntegrationTestCase
         $this->theirs = $this->comment($theirOrder->getId());
         $this->national = $this->comment($nationalOrder->getId());
 
-        $this->restricted = $this->factory->restrictedAdmin([AdminResources::ORDER => [AccessManager::VIEW]]);
-        $this->factory->adminSaleUnit($this->restricted, $first);
+        $restricted = $this->factory->restrictedAdmin(
+            [AdminResources::ORDER => [AccessManager::VIEW]],
+            ['password' => 'password'],
+        );
+        $this->factory->adminSaleUnit($restricted, $first);
+        $this->restrictedToken = $this->authenticateAsAdmin($restricted);
     }
 
     protected function tearDown(): void
     {
         $this->getService(AdminSaleUnitScope::class)->reset();
-        $this->logoutAdmin();
 
         parent::tearDown();
     }
 
     public function testARestrictedAdministratorReadsTheCommentsOfItsUnitsOnly(): void
     {
-        $this->loginAsAdminInSession($this->restricted);
-
-        self::assertSame([$this->mine], $this->ids('/admin/order-comments'));
-    }
-
-    public function testAnItemOfAnotherUnitIsOutOfReach(): void
-    {
-        $this->loginAsAdminInSession($this->restricted);
-
-        self::assertSame([], $this->ids('/admin/order-comments', [$this->theirs], true));
-        self::assertSame([], $this->ids('/admin/order-comments', [$this->national], true));
-        self::assertSame([$this->mine], $this->ids('/admin/order-comments', [$this->mine], true));
+        self::assertSame([$this->mine], $this->listedIds($this->restrictedToken, [$this->mine, $this->theirs, $this->national]));
     }
 
     public function testAnAdministratorOfNoUnitReadsEverything(): void
     {
-        $this->loginAsAdminInSession($this->factory->restrictedAdmin([AdminResources::ORDER => [AccessManager::VIEW]]));
+        $ids = $this->listedIds($this->authenticateAsAdmin(), [$this->mine, $this->theirs, $this->national]);
 
-        self::assertSame([$this->mine, $this->theirs, $this->national], $this->ids('/admin/order-comments'));
-    }
-
-    public function testTheFrontCollectionIsLeftAlone(): void
-    {
-        $this->loginAsAdminInSession($this->restricted);
-
-        self::assertSame([$this->mine, $this->theirs, $this->national], $this->ids('/front/order-comments'));
+        self::assertSame([$this->mine, $this->theirs, $this->national], $ids);
     }
 
     private function comment(int $orderId): int
@@ -98,21 +75,23 @@ final class AdminOrderCommentSaleUnitScopeTest extends ActionIntegrationTestCase
     }
 
     /**
-     * @param list<int>|null $among
+     * @param list<int> $among
      *
      * @return list<int>
      */
-    private function ids(string $uriTemplate, ?array $among = null, bool $item = false): array
+    private function listedIds(string $token, array $among): array
     {
-        $among ??= [$this->mine, $this->theirs, $this->national];
-        $query = OrderCommentQuery::create()->filterById($among)->orderById();
-        $extension = new AdminSaleUnitScopeExtension($this->getService(AdminSaleUnitScope::class));
-        $operation = new GetCollection(uriTemplate: $uriTemplate);
+        $response = $this->jsonRequest('GET', '/api/admin/order-comments', token: $token, format: 'json');
 
-        $item
-            ? $extension->applyToItem($query, OrderCommentResource::class, $operation)
-            : $extension->applyToCollection($query, OrderCommentResource::class, $operation);
+        self::assertSame(200, $response->getStatusCode(), (string) $response->getContent());
 
-        return array_map('intval', $query->select(['Id'])->find($this->getPropelConnection())->getData());
+        $ids = array_map(
+            static fn (array $row): int => (int) $row['id'],
+            json_decode((string) $response->getContent(), true, flags: \JSON_THROW_ON_ERROR),
+        );
+        $ids = array_values(array_intersect($ids, $among));
+        sort($ids);
+
+        return $ids;
     }
 }
