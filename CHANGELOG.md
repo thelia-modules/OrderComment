@@ -9,4 +9,6 @@
 
 ### Changed
 
+- The admin permission of the resource is added to `thelia.api.admin_resources` by a compiler pass, so it never erases what another module declared.
+
 - Requires `thelia/core` 3.3.0 or later (sale unit scope).

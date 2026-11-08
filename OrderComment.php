@@ -21,11 +21,9 @@ namespace OrderComment;
 
 use OrderComment\Model\OrderCommentQuery;
 use Propel\Runtime\Connection\ConnectionInterface;
-use OrderComment\Api\Resource\OrderComment as OrderCommentResource;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use OrderComment\DependencyInjection\AdminApiResourcesPass;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator;
 use Thelia\Core\Install\Database;
-use Thelia\Core\Security\Resource\AdminResources;
 use Thelia\Module\BaseModule;
 
 class OrderComment extends BaseModule
@@ -42,17 +40,9 @@ class OrderComment extends BaseModule
         }
     }
 
-    /**
-     * The admin API refuses a resource no permission is declared for: an order comment
-     * answers to the order permission, as the comment is shown on the order.
-     */
-    public static function configureContainer(ContainerConfigurator $containerConfigurator): void
+    public static function getCompilers(): array
     {
-        $containerConfigurator
-            ->parameters()
-            ->set('thelia.api.admin_resources', [
-                OrderCommentResource::class => AdminResources::ORDER,
-            ]);
+        return [new AdminApiResourcesPass()];
     }
 
     public static function configureServices(ServicesConfigurator $servicesConfigurator): void
